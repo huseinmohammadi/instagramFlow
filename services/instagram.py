@@ -54,10 +54,11 @@ class Instagram:
     
     def get_following(self, username):
         auth = self.login()
-        user_data = self.get_profile(username, auth)
-        header = self.generate_header_by_username(username)
-        data = requests.get(self.ENDPOINT + f'api/v1/friendships/{user_data["id"]}/following/?count={user_data["edge_follow"]["count"]}',
-                            headers=header, cookies=auth.cookies)
-        if data.status_code == 200:
-            return json.loads(data.text)['users']
+        if auth:
+            user_data = self.get_profile(username, auth)
+            header = self.generate_header_by_username(username)
+            data = requests.get(self.ENDPOINT + f'api/v1/friendships/{user_data["id"]}/following/?count={user_data["edge_follow"]["count"]}',
+                                headers=header, cookies=auth.cookies)
+            if data.status_code == 200:
+                return json.loads(data.text)['users']
         return None

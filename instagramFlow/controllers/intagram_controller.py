@@ -8,4 +8,4 @@ class InstagramController(Instagram):
         self.password = password
 
     def get_data(self):
-        self.get_following('merzhak')
+        print(self.get_following('merzhak'))

@@ -4,7 +4,6 @@ import re
 from datetime import datetime
 
 
-
 class Instagram:
     ENDPOINT = "https://www.instagram.com/"
     HEADER = {
@@ -47,7 +46,8 @@ class Instagram:
     def get_profile(self, username, auth):
         if auth:
             header = self.generate_header_by_username(username)
-            profile = requests.get(self.ENDPOINT + 'api/v1/users/web_profile_info/?username=' + username, headers=header, cookies=auth.cookies)
+            profile = requests.get(self.ENDPOINT + 'api/v1/users/web_profile_info/?username=' + username,
+                                   headers=header, cookies=auth.cookies)
             if profile.status_code == 200:
                 return json.loads(profile.text)['data']['user']
         return None
@@ -56,7 +56,8 @@ class Instagram:
         auth = self.login()
         user_data = self.get_profile(username, auth)
         header = self.generate_header_by_username(username)
-        data = requests.get(self.ENDPOINT + f'api/v1/friendships/{user_data["id"]}/following/?count={user_data["edge_follow"]["count"]}', headers=header, cookies=auth.cookies)
+        data = requests.get(self.ENDPOINT + f'api/v1/friendships/{user_data["id"]}/following/?count={user_data["edge_follow"]["count"]}',
+                            headers=header, cookies=auth.cookies)
         if data.status_code == 200:
             return json.loads(data.text)['users']
         return None

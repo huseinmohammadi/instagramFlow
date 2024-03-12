@@ -10,7 +10,6 @@ commandA = command.strip().split(':')
 conn = App.db_connection()
 
 
-
 if commandA[0]:
     if commandA[0] == "migrate":
         if len(commandA) > 1:
